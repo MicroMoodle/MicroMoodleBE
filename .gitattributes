@@ -1,0 +1,107 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Documents
+*.md text diff=markdown
+*.txt text
+*.json text
+*.yml text
+*.yaml text
+*.xml text
+*.html text
+*.css text
+*.scss text
+*.sass text
+*.less text
+
+# Scripts
+*.sh text eol=lf
+*.bash text eol=lf
+*.zsh text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.jsx text eol=lf
+*.tsx text eol=lf
+*.py text eol=lf
+*.rb text eol=lf
+*.pl text eol=lf
+*.php text eol=lf
+*.java text eol=lf
+*.go text eol=lf
+*.cs text eol=lf
+
+# Configs
+*.config text
+*.conf text
+*.ini text
+*.properties text
+*.toml text
+*.env text
+*.env.* text
+!.env.example
+
+# Graphics
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
+*.webp binary
+
+# Fonts
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.eot binary
+
+# Audio
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.flac binary
+
+# Video
+*.mp4 binary
+*.webm binary
+*.mov binary
+*.avi binary
+*.mkv binary
+
+# Archives
+*.zip binary
+*.tar binary
+*.gz binary
+*.rar binary
+*.7z binary
+
+# Database
+*.sqlite binary
+*.sqlite3 binary
+*.db binary
+
+# IDE
+.project text
+.classpath text
+.settings/* text
+*.sublime-project text
+*.sublime-workspace text
+*.code-workspace text
+
+# Docker
+Dockerfile text
+docker-compose*.yml text
+.dockerignore text
+
+# Kubernetes
+*.kubeconfig text
+kubeconfig text
+*.yaml text
+*.yml text
+
+# Documentation
+docs/**/*.md text diff=markdown
+docs/**/*.txt text
+docs/**/*.rst text
+docs/**/*.adoc text 

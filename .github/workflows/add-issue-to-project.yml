@@ -1,0 +1,25 @@
+name: Issue Project Management
+
+on:
+  issues:
+    types: [opened, assigned]
+
+jobs:
+  manage-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add Issue to Project
+        if: github.event.action == 'opened'
+        uses: actions/add-to-project@main
+        with:
+          project-url: ${{ secrets.PROJECT_URL }}
+          github-token: ${{ secrets.PROJECT_TOKEN }}
+          labeled: 'true'
+
+      - name: Move to In Progress
+        if: github.event.action == 'assigned'
+        uses: actions/add-to-project@main
+        with:
+          project-url: ${{ secrets.PROJECT_URL }}
+          github-token: ${{ secrets.PROJECT_TOKEN }}
+          column-name: 'In progress'

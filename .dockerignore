@@ -1,0 +1,152 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+.github
+
+# Development
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnpm-debug.log
+.env
+.env.*
+!.env.example
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Build outputs
+dist
+build
+out
+bin
+obj
+*.tsbuildinfo
+*.js.map
+*.d.ts
+*.min.js
+*.min.css
+*.bundle.js
+*.chunk.js
+*.chunk.css
+*.hot-update.js
+*.hot-update.json
+
+# Testing
+coverage
+.nyc_output
+junit.xml
+test-results
+*.lcov
+*.coverage
+*.coverage.*
+.coverage
+coverage.xml
+*.cover
+.hypothesis
+.pytest_cache
+htmlcov
+
+# Documentation
+docs
+*.md
+!README.md
+*.txt
+*.rst
+*.adoc
+
+# IDE
+.project
+.classpath
+.settings
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+*.sql
+*.dump
+*.bak
+*.backup
+*.gz
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# Cache and temp files
+.cache
+.temp
+.tmp
+tmp
+temp
+*.tmp
+*.temp
+
+# MinIO/S3
+.minio
+s3
+*.s3
+*.minio
+
+# Redis
+*.rdb
+*.aof
+dump.rdb
+appendonly.aof
+
+# RabbitMQ
+rabbitmq_data
+rabbitmq_logs
+
+# Grafana/Prometheus
+grafana_data
+prometheus_data
+*.prometheus
+*.grafana
+
+# Envoy
+envoy
+*.envoy
+*.envoy.yaml
+*.envoy.yml
+
+# Docker
+.docker
+docker-compose.override.yml
+*.env.docker
+
+# Kubernetes
+kubeconfig
+*.kubeconfig
+.kube
+*.kubeconfig.yaml
+*.kubeconfig.yml
+
+# Misc
+.DS_Store
+Thumbs.db
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings
+.loadpath
+.recommenders
+.externalToolBuilders
+*.tmproj
+*.esproj
+nbproject/private
+build
+nbbuild
+dist
+nbdist
+nbactions.xml
+nb-configuration.xml 
