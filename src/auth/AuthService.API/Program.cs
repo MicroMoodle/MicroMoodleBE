@@ -8,10 +8,10 @@ using AuthService.Shared;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddAPIDependencies(builder.Configuration)
+    .AddSharedDependencies(builder.Configuration)
     .AddApplicationDependencies(builder.Configuration)
-    .AddInfrastructuresDependencies(builder.Configuration)
-    .AddSharedDependencies(builder.Configuration);
+    .AddAPIDependencies(builder.Configuration)
+    .AddInfrastructuresDependencies(builder.Configuration);
 
 var app = builder.Build();
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
