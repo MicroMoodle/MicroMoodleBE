@@ -1,3 +1,4 @@
+using AuthService.Application.Exceptions;
 using AuthService.Application.MappingProfiles;
 using AuthService.Application.Models.Validators;
 using AuthService.Application.Services.TodoItem;
@@ -12,7 +13,18 @@ public static class ApplicationDependencyInjection
 {
     public static IServiceCollection AddApplicationDependencies(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddLibraries();
+        services
+            .AddGlobalExceptionHandler()
+            .AddServices()
+            .AddLibraries();
+
+        return services;
+    }
+
+    private static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services)
+    {
+        services.AddExceptionHandler<ExceptionHandler>();
+        services.AddProblemDetails();
 
         return services;
     }
