@@ -24,8 +24,7 @@ public static class APIDependencyInjection
             options.AddPolicy("AllowAll",
                 builder =>
                 {
-                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
-                        .AllowCredentials();
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                 });
         });
 
