@@ -1,10 +1,10 @@
 using AuthService.Core.Common;
 
-namespace AuthService.DataAccess.Repositories;
+namespace AuthService.Core.Repositories;
 
 public interface IUnitOfWork
 {
     Task<int> SaveChangesAsync();
     Task RollBackChangesAsync();
-    IBaseRepository<T> Repository<T>() where T : BaseEntity;
+    IRepository<T> Repository<T>() where T : BaseEntity;
 }

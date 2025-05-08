@@ -1,6 +1,4 @@
-using System;
-
-namespace IMDB_BE.Exceptions;
+namespace AuthService.Application.Exceptions;
 
 [Serializable]
 public class BadRequestException : Exception

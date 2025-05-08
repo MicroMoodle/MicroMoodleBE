@@ -1,24 +1,16 @@
-using System;
 using System.Security.Cryptography;
 using System.Text;
-
-using IMDB_BE.Common;
-
+using AuthService.Shared.Common;
 using Microsoft.Extensions.Options;
 
-namespace IMDB_BE.Shared
+namespace AuthService.Shared.Services
 {
-    public class PasswordService
+    public class PasswordService(IOptions<ApplicationConfiguration> applicationConfig)
     {
         private const int SaltSize = 16; // 128-bit
         private const int KeySize = 32; // 256-bit
         private const int Iterations = 10000;
-        private readonly PasswordSettings _passwordSettings;
-
-        public PasswordService(IOptions<PasswordSettings> passwordSettings)
-        {
-            _passwordSettings = passwordSettings.Value;
-        }
+        private readonly PasswordSettings _passwordSettings = applicationConfig.Value.PasswordSettings;
 
         public string HashPassword(string password)
         {

@@ -1,4 +1,4 @@
-namespace AuthService.API.Common;
+namespace AuthService.Shared.Common;
 
 public class ApplicationConfiguration
 {

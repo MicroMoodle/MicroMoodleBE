@@ -1,4 +1,4 @@
-namespace AuthService.DataAccess.Common;
+namespace AuthService.Core.Common;
 
 public class BaseEntity
 {

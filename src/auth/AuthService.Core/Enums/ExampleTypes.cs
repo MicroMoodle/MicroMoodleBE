@@ -1,4 +1,4 @@
-namespace AuthService.DataAccess.Enums;
+namespace AuthService.Core.Enums;
 
 public enum ExampleTypes
 {

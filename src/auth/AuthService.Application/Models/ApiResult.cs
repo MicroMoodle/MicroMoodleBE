@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace IMDB_BE.Common;
+namespace AuthService.Application.Models;
 
 public class ApiResult<T>
 {
@@ -22,7 +20,7 @@ public class ApiResult<T>
     public T? Result { get; set; }
 
     public IEnumerable<string> Errors { get; set; }
-    
+
     public string? Message { get; set; }
 
     public static ApiResult<T?> Success(int statusCode, T? result, string message)

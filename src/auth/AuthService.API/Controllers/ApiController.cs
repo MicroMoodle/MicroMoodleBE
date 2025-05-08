@@ -1,6 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace AuthService.API.Controllers;
 
-public class ApiController
-{
-    
-}
+[ApiController]
+[Route("api/[controller]")]
+public class ApiController : ControllerBase { }

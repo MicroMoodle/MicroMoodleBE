@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace AuthService.DataAccess.Specifications;
+namespace AuthService.Core.Repositories;
 
 public interface ISpecification<T>
 {

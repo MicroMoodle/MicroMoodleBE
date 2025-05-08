@@ -2,12 +2,11 @@ using AuthService.Core.Common;
 using AuthService.Core.Exceptions;
 using AuthService.Core.Repositories;
 using AuthService.DataAccess.Persistence;
-using AuthService.DataAccess.Specifications;
 using Microsoft.EntityFrameworkCore;
 
-namespace AuthService.DataAccess.Repositories;
+namespace AuthService.Infrastructure.Repositories;
 
-public class Repository<TEntity>(AuthDatabaseContext context) : IRepository<TEntity>
+public class BaseRepository<TEntity>(AuthDatabaseContext context) : IRepository<TEntity>
     where TEntity : BaseEntity
 {
     private readonly DbSet<TEntity> DbSet = context.Set<TEntity>();

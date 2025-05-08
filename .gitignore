@@ -216,6 +216,9 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 ServiceFabricBackup/
 *.rptproj.bak
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
 
 # Misc
 .DS_Store

@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using AuthService.Core.Repositories;
 
-namespace AuthService.DataAccess.Specifications;
+namespace AuthService.Infrastructure.Repositories;
 
 public class BaseSpecification<T>(Expression<Func<T, bool>> criteria) : ISpecification<T>
 {

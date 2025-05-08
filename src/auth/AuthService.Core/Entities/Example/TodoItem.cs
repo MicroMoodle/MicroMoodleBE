@@ -1,9 +1,11 @@
-using AuthService.DataAccess.Common;
+using AuthService.Core.Common;
 
-namespace AuthService.DataAccess.Entities.Example;
+namespace AuthService.Core.Entities.Example;
 
 public class TodoItem : BaseEntity, IAuditedEntity
 {
+    public Guid Id { get; set; }
+
     public string Title { get; set; }
 
     public string Body { get; set; }

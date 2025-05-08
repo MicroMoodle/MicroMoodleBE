@@ -1,13 +1,14 @@
 using AuthService.Core.Common;
+using AuthService.Core.Repositories;
 using AuthService.DataAccess.Persistence;
 
-namespace AuthService.DataAccess.Infrastructures.Repositories;
+namespace AuthService.Infrastructure.Repositories;
 
 public class UnitOfWork(AuthDatabaseContext dbContext) : IUnitOfWork
 {
     private readonly IDictionary<Type, dynamic> _repositories = new Dictionary<Type, dynamic>();
 
-    public IBaseRepository<T> Repository<T>() where T : BaseEntity
+    public IRepository<T> Repository<T>() where T : BaseEntity
     {
         var entityType = typeof(T);
 
@@ -28,7 +29,7 @@ public class UnitOfWork(AuthDatabaseContext dbContext) : IUnitOfWork
 
         _repositories.Add(entityType, repository);
 
-        return (IBaseRepository<T>) repository;
+        return (IRepository<T>) repository;
     }
 
     public async Task<int> SaveChangesAsync()

@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace AuthService.DataAccess.Exceptions;
+namespace AuthService.Core.Exceptions;
 
 [Serializable]
 public class ResourceNotFoundException : Exception

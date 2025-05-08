@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace IMDB_BE.Shared;
+namespace AuthService.Shared.Services;
 
 public class ClaimService
 {
@@ -12,9 +12,9 @@ public class ClaimService
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public string GetUserId()
+    public Guid? GetUserId()
     {
-        return GetClaim(ClaimTypes.NameIdentifier);
+        return Guid.TryParse(GetClaim(ClaimTypes.NameIdentifier), out var userId) ? userId : null;
     }
 
     public string GetClaim(string key)

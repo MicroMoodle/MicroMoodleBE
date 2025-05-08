@@ -1,7 +1,6 @@
 using AuthService.Core.Common;
-using AuthService.DataAccess.Specifications;
 
-namespace AuthService.DataAccess.Repositories;
+namespace AuthService.Core.Repositories;
 
 public interface IRepository<TEntity> where TEntity : BaseEntity
 {
