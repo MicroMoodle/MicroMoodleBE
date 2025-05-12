@@ -1,8 +1,9 @@
 using AuthService.Core.Common;
+using AuthService.Core.Events;
 
 namespace AuthService.Core.Entities.Example;
 
-public class TodoItem : BaseEntity, IAuditedEntity
+public class TodoItem : BaseAuditedEntity
 {
     public Guid Id { get; set; }
 
@@ -10,13 +11,18 @@ public class TodoItem : BaseEntity, IAuditedEntity
 
     public string Body { get; set; }
 
-    public bool IsDone { get; set; }
+    private bool _isDone;
+    public bool IsDone
+    {
+        get => _isDone;
+        set
+        {
+            if (value && !_isDone)
+            {
+                AddDomainEvent(new TodoItemCompletedEvent(this));
+            }
 
-    public Guid CreatedBy { get; set; }
-
-    public DateTime CreatedOn { get; set; }
-
-    public Guid UpdatedBy { get; set; }
-
-    public DateTime? UpdatedOn { get; set; }
+            _isDone = value;
+        }
+    }
 }

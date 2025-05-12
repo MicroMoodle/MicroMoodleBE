@@ -1,7 +1,7 @@
+using System.Reflection;
 using AuthService.Application.Exceptions;
 using AuthService.Application.MappingProfiles;
 using AuthService.Application.Models.Validators;
-using AuthService.Application.Services.TodoItem;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,24 +14,17 @@ public static class ApplicationDependencyInjection
     public static IServiceCollection AddApplicationDependencies(this IServiceCollection services, IConfiguration configuration)
     {
         services
-            .AddGlobalExceptionHandler()
-            .AddServices()
+            .AddMediatR()
             .AddLibraries();
 
         return services;
     }
 
-    private static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services)
+    private static IServiceCollection AddMediatR(this IServiceCollection services)
     {
-        services.AddExceptionHandler<ExceptionHandler>();
-        services.AddProblemDetails();
-
-        return services;
-    }
-
-    private static IServiceCollection AddServices(this IServiceCollection services)
-    {
-        services.AddScoped<ITodoItemService, TodoItemService>();
+        services.AddMediatR(cfg => {
+            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+        });
 
         return services;
     }

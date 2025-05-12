@@ -1,6 +1,6 @@
 namespace AuthService.Core.Common;
 
-public interface IAuditedEntity
+public abstract class BaseAuditedEntity : BaseEntity
 {
     public Guid CreatedBy { get; set; }
 

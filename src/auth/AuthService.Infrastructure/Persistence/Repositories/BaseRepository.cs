@@ -1,19 +1,25 @@
+using AuthService.Application.Common.Interfaces;
+using AuthService.Application.Common.Specifications;
 using AuthService.Core.Common;
 using AuthService.Core.Exceptions;
-using AuthService.Core.Repositories;
 using AuthService.DataAccess.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace AuthService.Infrastructure.Repositories;
+namespace AuthService.Infrastructure.Persistence.Repositories;
 
 public class BaseRepository<TEntity>(AuthDatabaseContext context) : IRepository<TEntity>
     where TEntity : BaseEntity
 {
     private readonly DbSet<TEntity> DbSet = context.Set<TEntity>();
 
-    public async Task<List<TEntity>> GetAllAsync(ISpecification<TEntity> spec)
+    public IQueryable<TEntity> GetAll()
     {
-        return await ApplySpecification(spec).ToListAsync();
+        return context.Set<TEntity>().AsQueryable();
+    }
+
+    public IQueryable<TEntity> Find(ISpecification<TEntity> spec)
+    {
+        return ApplySpecification(spec);
     }
 
     public async Task<TEntity> GetFirstOrThrowAsync(ISpecification<TEntity> spec)

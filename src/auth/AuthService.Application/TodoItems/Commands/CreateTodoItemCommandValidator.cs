@@ -1,11 +1,11 @@
 using AuthService.Application.Models.Example.TodoItem;
 using FluentValidation;
 
-namespace AuthService.Application.Models.Validators.Example.TodoItem;
+namespace AuthService.Application.TodoItems.Commands;
 
-public class CreateTodoItemModelValidator : AbstractValidator<CreateTodoItemModel>
+public class CreateTodoItemCommandValidator : AbstractValidator<CreateTodoItemModel>
 {
-    public CreateTodoItemModelValidator()
+    public CreateTodoItemCommandValidator()
     {
         RuleFor(cti => cti.Title)
             .MinimumLength(TodoItemValidatorConfiguration.MinimumTitleLength)

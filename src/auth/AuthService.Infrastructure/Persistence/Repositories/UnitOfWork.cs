@@ -1,8 +1,8 @@
+using AuthService.Application.Common.Interfaces;
 using AuthService.Core.Common;
-using AuthService.Core.Repositories;
 using AuthService.DataAccess.Persistence;
 
-namespace AuthService.Infrastructure.Repositories;
+namespace AuthService.Infrastructure.Persistence.Repositories;
 
 public class UnitOfWork(AuthDatabaseContext dbContext) : IUnitOfWork
 {
@@ -32,13 +32,13 @@ public class UnitOfWork(AuthDatabaseContext dbContext) : IUnitOfWork
         return (IRepository<T>) repository;
     }
 
-    public async Task<int> SaveChangesAsync()
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        return await dbContext.SaveChangesAsync();
+        return await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task RollBackChangesAsync()
+    public async Task RollBackChangesAsync(CancellationToken cancellationToken = default)
     {
-        await dbContext.Database.RollbackTransactionAsync();
+        await dbContext.Database.RollbackTransactionAsync(cancellationToken);
     }
 }

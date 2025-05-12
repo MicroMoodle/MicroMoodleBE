@@ -125,6 +125,15 @@ Services communicate with each other through:
 5. All services should include comprehensive unit and integration tests
 6. Services should implement proper monitoring and health checks
 7. Documentation should be maintained for each service
+8. All database migrations for the Auth Service must be created in the folder `src/auth/AuthService.Infrastructure/Persistence/PostgreSQL` and should follow best practices for migration scripts (clear naming, idempotency, and proper rollback support).
+
+   To create a new migration using EF Core, run the following command from the project root:
+
+   ```bash
+   dotnet ef migrations add <MigrationName> --project src/auth/AuthService.Infrastructure --output-dir Persistence/PostgreSQL
+   ```
+
+   Replace `<MigrationName>` with a descriptive name for your migration.
 
 ## Getting Started
 

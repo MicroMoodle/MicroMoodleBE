@@ -1,21 +1,17 @@
 using System.Reflection;
+using AuthService.Application.Common.Interfaces;
 using AuthService.Core.Common;
 using AuthService.Core.Entities.Example;
+using AuthService.Infrastructure.Identity;
 using AuthService.Shared.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace AuthService.DataAccess.Persistence;
+namespace AuthService.Infrastructure.Persistence;
 
-public class AuthDatabaseContext : DbContext
+public class AuthDatabaseContext(DbContextOptions<AuthDatabaseContext> options)
+    : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>(options), IAuthDatabaseContext
 {
-    private readonly ClaimService _claimService;
-
-    public AuthDatabaseContext(DbContextOptions options, ClaimService claimService) : base(options)
-    {
-        _claimService = claimService;
-    }
-
     public DbSet<TodoItem> TodoItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -23,23 +19,5 @@ public class AuthDatabaseContext : DbContext
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         base.OnModelCreating(builder);
-    }
-
-    public new async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
-    {
-        foreach (var entry in ChangeTracker.Entries<IAuditedEntity>())
-            switch (entry.State)
-            {
-                case EntityState.Added:
-                    entry.Entity.CreatedBy = _claimService.GetUserId() ?? Guid.Empty;
-                    entry.Entity.CreatedOn = DateTime.Now;
-                    break;
-                case EntityState.Modified:
-                    entry.Entity.UpdatedBy = _claimService.GetUserId() ?? Guid.Empty;
-                    entry.Entity.UpdatedOn = DateTime.Now;
-                    break;
-            }
-
-        return await base.SaveChangesAsync(cancellationToken);
     }
 }

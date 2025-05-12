@@ -1,8 +1,8 @@
+using AuthService.Application.Common.Interfaces;
 using AuthService.Core.Common;
-using AuthService.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace AuthService.Infrastructure.Repositories;
+namespace AuthService.Application.Common.Specifications;
 
 public class SpecificationEvaluator<T> where T : BaseEntity
 {

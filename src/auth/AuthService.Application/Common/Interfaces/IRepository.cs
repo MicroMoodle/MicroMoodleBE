@@ -1,6 +1,6 @@
 using AuthService.Core.Common;
 
-namespace AuthService.Core.Repositories;
+namespace AuthService.Application.Common.Interfaces;
 
 public interface IRepository<TEntity> where TEntity : BaseEntity
 {
@@ -8,7 +8,9 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
 
     Task<TEntity?> GetFirstAsync(ISpecification<TEntity> spec);
 
-    Task<List<TEntity>> GetAllAsync(ISpecification<TEntity> spec);
+    IQueryable<TEntity> GetAll();
+
+    IQueryable<TEntity> Find(ISpecification<TEntity> spec);
 
     Task<int> CountAsync(ISpecification<TEntity> spec);
 

@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace AuthService.Core.Repositories;
+namespace AuthService.Application.Common.Interfaces;
 
 public interface ISpecification<T>
 {
@@ -21,4 +21,5 @@ public interface ISpecification<T>
     int Skip { get; }
 
     bool IsPagingEnabled { get; }
+
 }

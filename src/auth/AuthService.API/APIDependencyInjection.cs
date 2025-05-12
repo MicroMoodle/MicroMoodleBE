@@ -1,4 +1,5 @@
 using AuthService.API.Filters;
+using AuthService.API.Middlewares;
 using AuthService.Shared.Common;
 using Microsoft.OpenApi.Models;
 
@@ -8,11 +9,11 @@ public static class APIDependencyInjection
 {
     public static IServiceCollection AddAPIDependencies(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddCors();
-
-        services.AddControllers();
-
-        services.AddSwagger();
+        services
+            .AddCors()
+            .AddControllers()
+            .AddSwagger()
+            .AddGlobalExceptionHandler();
 
         return services;
     }
@@ -38,6 +39,14 @@ public static class APIDependencyInjection
             options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
             options.Filters.Add<ValidateModelAttribute>();
         });
+
+        return services;
+    }
+
+    private static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services)
+    {
+        services.AddExceptionHandler<ExceptionHandler>();
+        services.AddProblemDetails();
 
         return services;
     }

@@ -1,4 +1,4 @@
-namespace AuthService.Application.Models.Validators.Example.TodoItem;
+namespace AuthService.Application.TodoItems.Commands;
 
 public class TodoItemValidatorConfiguration
 {

@@ -1,13 +1,13 @@
 using System.Text.Json;
+using AuthService.Application.Exceptions;
 using AuthService.Application.Models;
 using AuthService.Core.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
-namespace AuthService.Application.Exceptions;
+namespace AuthService.API.Middlewares;
 
-public class ExceptionHandler(ILogger<ExceptionHandler> logger) : IExceptionHandler
+public class ExceptionHandler() : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
@@ -34,7 +34,7 @@ public class ExceptionHandler(ILogger<ExceptionHandler> logger) : IExceptionHand
 
         if (code == StatusCodes.Status500InternalServerError)
         {
-            logger.LogError(ex.Message);
+            Log.Error(ex.Message);
             errors = new List<string> { "An error occurred while processing your request" };
         }
 
