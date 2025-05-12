@@ -4,13 +4,12 @@ public class ApiResult<T>
 {
     private ApiResult() { }
 
-    private ApiResult(int statusCode, bool succeeded, T? result, IEnumerable<string> errors, string? message = null)
+    private ApiResult(int statusCode, bool succeeded, T? result, IEnumerable<string> errors)
     {
         StatusCode = statusCode;
         Succeeded = succeeded;
         Result = result;
         Errors = errors;
-        Message = message;
     }
 
     public int StatusCode { get; set; }
@@ -21,11 +20,9 @@ public class ApiResult<T>
 
     public IEnumerable<string> Errors { get; set; }
 
-    public string? Message { get; set; }
-
-    public static ApiResult<T?> Success(int statusCode, T? result, string message)
+    public static ApiResult<T?> Success(int statusCode, T? result)
     {
-        return new ApiResult<T?>(statusCode, true, result, new List<string>(), message);
+        return new ApiResult<T?>(statusCode, true, result, new List<string>());
     }
 
     public static ApiResult<T?> Failure(int statusCode, IEnumerable<string> errors)

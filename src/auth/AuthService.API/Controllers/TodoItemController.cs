@@ -7,22 +7,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AuthService.API.Controllers;
 
-public class TodoItemController : ApiController
+public class TodoItemController(ISender sender) : ApiController
 {
     [HttpGet("todoitems")]
-    public async Task<Ok<List<TodoItemDTO>>> GetTodoItems(ISender sender,
-        [AsParameters] GetTodoItemsWithPaginationQuery query)
+    public async Task<ObjectResult> GetTodoItems(
+        [FromQuery] GetTodoItemsWithPaginationQuery query)
     {
         var result = await sender.Send(query);
-
-        return TypedResults.Ok(result);
+        return Ok(result);
     }
 
     [HttpPost("todoitems")]
-    public async Task<Created<Guid>> CreateTodoItem(
-        ISender sender, CreateTodoItemCommand command)
+    public async Task<ObjectResult> CreateTodoItem(
+        [FromBody] CreateTodoItemCommand command)
     {
         var result = await sender.Send(command);
-        return TypedResults.Created($"/{nameof(TodoItemController)}/{result}", result);
+        return Created($"/{nameof(TodoItemController)}/{result}", result);
     }
 }

@@ -37,6 +37,7 @@ public static class APIDependencyInjection
         services.AddControllers(options =>
         {
             options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+            options.Filters.Add<ResponseWrapperFilter>();
             options.Filters.Add<ValidateModelAttribute>();
         });
 

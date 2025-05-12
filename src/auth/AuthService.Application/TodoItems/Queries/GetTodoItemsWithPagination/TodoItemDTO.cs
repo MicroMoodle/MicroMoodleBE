@@ -5,7 +5,7 @@ namespace AuthService.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
 public class TodoItemDTO
 {
-    public int Id { get; init; }
+    public Guid Id { get; init; }
 
     public string Title { get; init; }
 
