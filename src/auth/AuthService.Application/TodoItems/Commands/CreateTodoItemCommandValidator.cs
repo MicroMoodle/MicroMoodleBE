@@ -1,9 +1,8 @@
-using AuthService.Application.Models.Example.TodoItem;
 using FluentValidation;
 
 namespace AuthService.Application.TodoItems.Commands;
 
-public class CreateTodoItemCommandValidator : AbstractValidator<CreateTodoItemModel>
+public class CreateTodoItemCommandValidator : AbstractValidator<CreateTodoItemCommand>
 {
     public CreateTodoItemCommandValidator()
     {

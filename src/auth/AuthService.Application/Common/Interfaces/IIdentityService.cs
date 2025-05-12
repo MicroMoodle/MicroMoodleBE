@@ -1,4 +1,3 @@
-using AuthService.Application.Models;
 
 namespace AuthService.Application.Common.Interfaces;
 

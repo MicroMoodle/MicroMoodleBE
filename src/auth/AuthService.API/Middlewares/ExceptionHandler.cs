@@ -1,6 +1,6 @@
 using System.Text.Json;
+using AuthService.Application.Common.Models;
 using AuthService.Application.Exceptions;
-using AuthService.Application.Models;
 using AuthService.Core.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Serilog;

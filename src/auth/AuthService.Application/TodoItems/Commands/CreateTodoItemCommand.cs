@@ -8,6 +8,8 @@ namespace AuthService.Application.TodoItems.Commands;
 public record CreateTodoItemCommand : IRequest<Guid>
 {
     public string Title { get; init; }
+
+    public string Body { get; init; }
 }
 
 public class CreateTodoItemCommandHandler(IUnitOfWork unitOfWork) : IRequestHandler<CreateTodoItemCommand, Guid>
@@ -17,6 +19,7 @@ public class CreateTodoItemCommandHandler(IUnitOfWork unitOfWork) : IRequestHand
         var entity = new TodoItem
         {
             Title = request.Title,
+            Body = request.Body,
             IsDone = false
         };
 

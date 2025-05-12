@@ -130,7 +130,7 @@ Services communicate with each other through:
    To create a new migration using EF Core, run the following command from the project root:
 
    ```bash
-   dotnet ef migrations add <MigrationName> --project src/auth/AuthService.Infrastructure --output-dir Persistence/PostgreSQL
+   dotnet ef migrations add <MigrationName> --project src/auth/AuthService.Infrastructure --startup-project src/auth/AuthService.API --output-dir Persistence/PostgreSQL
    ```
 
    Replace `<MigrationName>` with a descriptive name for your migration.

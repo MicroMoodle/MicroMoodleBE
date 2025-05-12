@@ -3,10 +3,13 @@ using AuthService.Application.Common.Specifications;
 using AuthService.DataAccess.Persistence;
 using AuthService.Infrastructure.Identity;
 using AuthService.Infrastructure.Persistence;
+using AuthService.Infrastructure.Persistence.Interceptors;
 using AuthService.Infrastructure.Persistence.Repositories;
 using AuthService.Shared.Common;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Templates;
@@ -20,6 +23,7 @@ public static class InfrastructureDependencyInjection
     {
         services
             .AddPostgreSQL()
+            .AddIdentity()
             .AddRepositories()
             .AddLogging(configuration);
 
@@ -29,18 +33,20 @@ public static class InfrastructureDependencyInjection
     private static IServiceCollection AddPostgreSQL(this IServiceCollection services)
     {
         var connectionStrings = services.BuildServiceProvider().GetRequiredService<IOptions<ApplicationConfiguration>>().Value.ConnectionStrings;
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddDbContext<AuthDatabaseContext>((provider, options) =>
-            options.UseNpgsql(connectionStrings.PostgreSQL).AddAsyncSeeding(provider));
+            options
+                .AddInterceptors(provider.GetRequiredService<ISaveChangesInterceptor>())
+                .UseNpgsql(connectionStrings.PostgreSQL).AddAsyncSeeding(provider));
         services.AddScoped<IAuthDatabaseContext>(provider => provider.GetRequiredService<AuthDatabaseContext>());
         services.AddScoped<AuthDatabaseContextInitialiser>();
 
         return services;
     }
 
-    private static void AddIdentity(this IServiceCollection services)
+    private static IServiceCollection AddIdentity(this IServiceCollection services)
     {
-        services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            .AddRoles<ApplicationRole>()
+        services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<AuthDatabaseContext>()
             .AddDefaultTokenProviders();
 
@@ -61,6 +67,11 @@ public static class InfrastructureDependencyInjection
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
             options.User.RequireUniqueEmail = true;
         });
+
+        services.AddSingleton(TimeProvider.System);
+        services.AddTransient<IIdentityService, IdentityService>();
+
+        return services;
     }
 
     private static IServiceCollection AddRepositories(this IServiceCollection services)

@@ -27,4 +27,8 @@
         <ProjectReference Include="..\AuthService.Application\AuthService.Application.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Persistence\PostgreSQL\" />
+    </ItemGroup>
+
 </Project>

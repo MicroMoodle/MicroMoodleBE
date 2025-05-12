@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace AuthService.Infrastructure.Persistence.Interceptors;
 
-public class AuditableEntityInterceptor(ClaimService claimService) : SaveChangesInterceptor
+public class AuditableEntityInterceptor(ClaimService claimService, TimeProvider dateTime) : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
@@ -15,7 +15,8 @@ public class AuditableEntityInterceptor(ClaimService claimService) : SaveChanges
         return base.SavingChanges(eventData, result);
     }
 
-    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
+    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData,
+        InterceptionResult<int> result, CancellationToken cancellationToken = default)
     {
         UpdateEntities(eventData.Context);
 
@@ -30,13 +31,16 @@ public class AuditableEntityInterceptor(ClaimService claimService) : SaveChanges
         {
             if (entry.State is EntityState.Added or EntityState.Modified || entry.HasChangedOwnedEntities())
             {
+                var utcNow = dateTime.GetUtcNow();
                 if (entry.State == EntityState.Added)
                 {
                     entry.Entity.CreatedBy = claimService.GetUserId() ?? Guid.Empty;
-                    entry.Entity.CreatedOn = DateTime.UtcNow;
+                    entry.Entity.CreatedOn = utcNow;
                 }
-                entry.Entity.UpdatedBy = claimService.GetUserId() ?? Guid.Empty;;
-                entry.Entity.UpdatedOn = DateTime.UtcNow;
+
+                entry.Entity.UpdatedBy = claimService.GetUserId() ?? Guid.Empty;
+                ;
+                entry.Entity.UpdatedOn = utcNow;
             }
         }
     }

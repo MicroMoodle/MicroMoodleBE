@@ -1,7 +1,4 @@
 using System.Reflection;
-using AuthService.Application.Exceptions;
-using AuthService.Application.MappingProfiles;
-using AuthService.Application.Models.Validators;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,9 +29,9 @@ public static class ApplicationDependencyInjection
     private static IServiceCollection AddLibraries(this IServiceCollection services)
     {
         services.AddFluentValidationAutoValidation();
-        services.AddValidatorsFromAssemblyContaining(typeof(IValidatorMarker));
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        services.AddAutoMapper(typeof(IMappingProfilesMarker));
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         return services;
     }

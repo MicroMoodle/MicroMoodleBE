@@ -1,4 +1,4 @@
-namespace AuthService.Application.Models;
+namespace AuthService.Application.Common.Models;
 
 public class BaseResponseModel
 {

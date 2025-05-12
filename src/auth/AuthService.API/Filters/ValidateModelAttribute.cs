@@ -1,4 +1,4 @@
-using AuthService.Application.Models;
+using AuthService.Application.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

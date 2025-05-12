@@ -1,3 +1,4 @@
+using AuthService.Application.TodoItems.Commands;
 using AuthService.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 using AuthService.Core.Entities.Example;
 using MediatR;
@@ -15,5 +16,13 @@ public class TodoItemController : ApiController
         var result = await sender.Send(query);
 
         return TypedResults.Ok(result);
+    }
+
+    [HttpPost("todoitems")]
+    public async Task<Created<Guid>> CreateTodoItem(
+        ISender sender, CreateTodoItemCommand command)
+    {
+        var result = await sender.Send(command);
+        return TypedResults.Created($"/{nameof(TodoItemController)}/{result}", result);
     }
 }

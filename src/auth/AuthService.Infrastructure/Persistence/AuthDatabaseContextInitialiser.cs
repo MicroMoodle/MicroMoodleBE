@@ -6,24 +6,16 @@ using Serilog;
 
 namespace AuthService.Infrastructure.Persistence;
 
-public class AuthDatabaseContextInitialiser
+public class AuthDatabaseContextInitialiser(
+    AuthDatabaseContext context,
+    UserManager<ApplicationUser> userManager,
+    RoleManager<ApplicationRole> roleManager)
 {
-    private readonly AuthDatabaseContext _context;
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-
-    public AuthDatabaseContextInitialiser(AuthDatabaseContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
-    {
-        _context = context;
-        _userManager = userManager;
-        _roleManager = roleManager;
-    }
-
     public async Task InitialiseAsync()
     {
         try
         {
-            await _context.Database.MigrateAsync();
+            await context.Database.MigrateAsync();
         }
         catch (Exception ex)
         {
@@ -48,22 +40,22 @@ public class AuthDatabaseContextInitialiser
     private async Task TrySeedAsync()
     {
         // Default roles
-        var administratorRole = new IdentityRole("Admin");
+        var administratorRole = new ApplicationRole("Admin");
 
-        if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
+        if (roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
-            await _roleManager.CreateAsync(administratorRole);
+            await roleManager.CreateAsync(administratorRole);
         }
 
         // Default users
         var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
 
-        if (_userManager.Users.All(u => u.UserName != administrator.UserName))
+        if (userManager.Users.All(u => u.UserName != administrator.UserName))
         {
-            await _userManager.CreateAsync(administrator, "Administrator1!");
+            await userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
+                await userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
             }
         }
     }
