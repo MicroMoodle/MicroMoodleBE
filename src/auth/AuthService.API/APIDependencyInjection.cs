@@ -1,6 +1,6 @@
 using AuthService.API.Filters;
 using AuthService.API.Middlewares;
-using AuthService.Shared.Common;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 
 namespace AuthService.API;
@@ -34,11 +34,12 @@ public static class APIDependencyInjection
 
     private static IServiceCollection AddControllers(this IServiceCollection services)
     {
+        services.Configure<ApiBehaviorOptions>(options =>
+            options.SuppressModelStateInvalidFilter = true);
         services.AddControllers(options =>
         {
             options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
             options.Filters.Add<ResponseWrapperFilter>();
-            options.Filters.Add<ValidateModelAttribute>();
         });
 
         return services;

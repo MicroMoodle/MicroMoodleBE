@@ -19,8 +19,8 @@ try
     builder.Services
         .AddSharedDependencies(builder.Configuration)
         .AddApplicationDependencies(builder.Configuration)
-        .AddAPIDependencies(builder.Configuration)
-        .AddInfrastructuresDependencies(builder.Configuration);
+        .AddInfrastructuresDependencies(builder.Configuration)
+        .AddAPIDependencies(builder.Configuration);
 
     await using var app = builder.Build();
 

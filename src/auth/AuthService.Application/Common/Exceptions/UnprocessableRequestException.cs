@@ -1,7 +1,4 @@
-namespace AuthService.Application.Exceptions;
+namespace AuthService.Application.Common.Exceptions;
 
 [Serializable]
-public class UnprocessableRequestException : Exception
-{
-    public UnprocessableRequestException(string message) : base(message) { }
-}
+public class UnprocessableRequestException(string message) : Exception(message);

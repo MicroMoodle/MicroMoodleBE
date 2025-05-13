@@ -1,4 +1,5 @@
 using System.Reflection;
+using AuthService.Application.Common.Behaviors;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,17 +12,8 @@ public static class ApplicationDependencyInjection
     public static IServiceCollection AddApplicationDependencies(this IServiceCollection services, IConfiguration configuration)
     {
         services
-            .AddMediatR()
-            .AddLibraries();
-
-        return services;
-    }
-
-    private static IServiceCollection AddMediatR(this IServiceCollection services)
-    {
-        services.AddMediatR(cfg => {
-            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-        });
+            .AddLibraries()
+            .AddMediatR();
 
         return services;
     }
@@ -32,6 +24,16 @@ public static class ApplicationDependencyInjection
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+        return services;
+    }
+
+    private static IServiceCollection AddMediatR(this IServiceCollection services)
+    {
+        services.AddMediatR(cfg => {
+            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+        });
 
         return services;
     }
