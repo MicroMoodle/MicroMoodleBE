@@ -46,7 +46,6 @@ The system is built using a microservices architecture with the following compon
 
 ### Backend Services
 
-- NestJS/Node.js/TypeScript
 - ASP.NET/C#
 - Spring Boot/Java
 - Golang
@@ -75,10 +74,10 @@ The system is built using a microservices architecture with the following compon
 ### Prerequisites
 
 - Docker and Docker Compose
-- Node.js (v16 or later)
-- Java 17 or later
-- .NET 7 or later
-- Go 1.20 or later
+- Node.js (v22 or later)
+- Java 24 or later
+- .NET 9 or later
+- Go 1.24 or later
 - Kubernetes cluster (for production)
 
 ### Development Setup

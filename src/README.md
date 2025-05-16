@@ -15,6 +15,12 @@ Handles all authentication and authorization related operations:
 - Session management
 - Password reset and email verification
 
+**Tech Stack:**
+
+- ASP.NET
+- PostgreSQL
+- Redis
+
 ### 2. Tenant Service
 
 Manages multi-tenancy functionality:
@@ -24,6 +30,11 @@ Manages multi-tenancy functionality:
 - Domain mapping
 - Tenant-specific settings
 - Tenant isolation and data separation
+
+**Tech Stack:**
+
+- ASP.NET
+- PostgreSQL
 
 ### 3. User Service
 
@@ -36,11 +47,21 @@ Handles user management operations:
 - User activity tracking
 - User search and filtering
 
+**Tech Stack:**
+
+- ASP.NET
+- PostgreSQL
+
 ### 4. Web Config Service
 
 Manages system-wide configuration:
 
 - UI/UX configurations
+
+**Tech Stack:**
+
+- ASP.NET
+- MongoDB
 
 ### 5. Course Service
 
@@ -54,6 +75,11 @@ Manages all course-related operations:
 - Course progress tracking
 - Course analytics
 
+**Tech Stack:**
+
+- ASP.NET
+- PostgreSQL
+
 ### 6. File Service
 
 Handles file operations and storage:
@@ -65,6 +91,12 @@ Handles file operations and storage:
 - CDN integration
 - File access control
 - File versioning
+
+**Tech Stack:**
+
+- Go
+- PostgreSQL
+- MinIO
 
 ### 7. Notification Service
 
@@ -79,6 +111,11 @@ Manages all notification-related operations:
 - Notification delivery status
 - Notification history
 
+**Tech Stack:**
+
+- ASP.NET
+- PostgreSQL
+
 ### 8. Payment Service
 
 Handles all payment-related operations:
@@ -91,6 +128,11 @@ Handles all payment-related operations:
 - Payment history
 - Financial reporting
 
+**Tech Stack:**
+
+- Java
+- PostgreSQL
+
 ## Service Communication
 
 Services communicate with each other through:
@@ -100,7 +142,6 @@ Services communicate with each other through:
 
 ## Technology Stack
 
-- NestJS framework/Node.js/TypeScript
 - ASP.NET/C#
 - Spring Boot/Java
 - Golang
@@ -125,6 +166,15 @@ Services communicate with each other through:
 5. All services should include comprehensive unit and integration tests
 6. Services should implement proper monitoring and health checks
 7. Documentation should be maintained for each service
+8. All database migrations for the Auth Service must be created in the folder `src/auth/AuthService.Infrastructure/Persistence/PostgreSQL` and should follow best practices for migration scripts (clear naming, idempotency, and proper rollback support).
+
+   To create a new migration using EF Core, run the following command from the project root:
+
+   ```bash
+   dotnet ef migrations add <MigrationName> --project src/auth/AuthService.Infrastructure --startup-project src/auth/AuthService.API --output-dir Persistence/PostgreSQL
+   ```
+
+   Replace `<MigrationName>` with a descriptive name for your migration.
 
 ## Getting Started
 
