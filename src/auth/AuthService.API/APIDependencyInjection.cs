@@ -1,5 +1,6 @@
 using AuthService.API.Filters;
 using AuthService.API.Middlewares;
+using AuthService.Shared.Common.Converters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 
@@ -40,6 +41,9 @@ public static class APIDependencyInjection
         {
             options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
             options.Filters.Add<ResponseWrapperFilter>();
+        }).AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.Converters.Add(new EnumOrStructJsonConverterFactory());
         });
 
         return services;
